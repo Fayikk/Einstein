@@ -1,3 +1,5 @@
+using API.Helpers;
+using AutoMapper;
 using Core.Entities;
 using Core.Interface;
 using Infrastructure.Data;
@@ -25,6 +27,8 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped(typeof(IGenericRepository<>),(typeof(GenericRepository<>)));
+            services.AddAutoMapper(typeof(MappingProfiles));
             services.AddScoped<IProductRepository , ProductRepository>();
             services.AddControllers();
             services.AddDbContext<DataContext>(x => x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
