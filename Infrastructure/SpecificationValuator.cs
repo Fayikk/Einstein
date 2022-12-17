@@ -6,11 +6,11 @@ using Core.Entities;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure
+namespace Infrastructure.Data
 {
-    public class SpecificationValuator<TEntity> where TEntity:BaseEntity
+    public class SpecificationValuator<TEntity> where TEntity : BaseEntity
     {
-       public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery,ISpecification<TEntity> spec){
+        public static IQueryable<TEntity> GetQuery(IQueryable<TEntity> inputQuery,ISpecification<TEntity> spec){
 
                 var query = inputQuery;
 
@@ -19,11 +19,23 @@ namespace Infrastructure
                     query = query.Where(spec.Criteria); //p => p.ProductTypeId == id
                 }
 
+                 if (spec.OrderBy != null)
+                {
+                    query = query.OrderBy(spec.OrderBy); 
+                }
+
+                if (spec.OrderByDescending != null)
+                {
+                    query = query.OrderByDescending(spec.OrderByDescending); 
+                }
+                if(spec.IsPaginatedEnabled){
+                    query = query.Skip(spec.skip).Take(spec.Take);
+                }
+
                 query = spec.Includes.Aggregate(query,(current,include) => 
                     current.Include(include));
                 return query;
 
         }
-        
     }
 }
