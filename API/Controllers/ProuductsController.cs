@@ -31,7 +31,8 @@ namespace API.Controllers
             _productbrandRepo = productbrandRepo;
         }
 
-        [HttpGet]
+       [HttpGet]
+        
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]
             ProductSpecParams productParams){
             var spec = new ProductsWithTypesAndBrandsSpecification(productParams);
@@ -41,7 +42,7 @@ namespace API.Controllers
             var data = _mapper.Map<IReadOnlyList<Product>,IReadOnlyList<ProductToReturnDto>>(products);
             return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex,productParams.PageSize,totalItems,data));           
         }
-
+        
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status404NotFound)]

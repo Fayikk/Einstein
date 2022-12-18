@@ -1,6 +1,7 @@
-.cart-no{
+.cart-no {
     position: absolute;
     min-height: 25px;
+    min-width: 25px;
     border-radius: 50%;
     font-size: 1em;
     background: blue;
@@ -8,4 +9,15 @@
     text-align: center;
     top: -12px;
     right: 32px;
+}
+
+a {
+
+    text-decoration: none;
+    color: #343a40;
+
+}
+
+.logo{
+    cursor: pointer;
 }
