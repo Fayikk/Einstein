@@ -12,6 +12,9 @@ const routes: Routes = [
   {path:'server-error',component: ServerErrorComponent,data:{breadCrumb:"Server Error"}},
   {path:'not-found',component: NotFoundComponent,data:{breadCrumb:"Not found"}},
   {path:'shop',loadChildren: () =>  import('./shop/shop.module').then(mod => mod.ShopModule)},
+  {path: 'basket', loadChildren: () => import('./basket/basket.module').then(mod => mod.BasketModule),
+    data: {breadCrumb:'Basket'}}, 
+
   {path:'**',redirectTo:'',pathMatch:'full'}
 ];
 
